@@ -6,7 +6,7 @@
     <modules>
         <module>split-read-write</module>
         <module>split-table</module>
-        <module>sub-table-read-write</module>
+        <module>split-table-read-write</module>
         <module>split-database-table</module>
         <module>sub-db-table-read-write</module>
     </modules>
