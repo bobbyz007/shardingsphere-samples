@@ -8,7 +8,7 @@
         <module>split-table</module>
         <module>split-table-read-write</module>
         <module>split-database-table</module>
-        <module>sub-db-table-read-write</module>
+        <module>split-database-table-read-write</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
