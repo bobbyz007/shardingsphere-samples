@@ -9,6 +9,7 @@
         <module>split-table-read-write</module>
         <module>split-database</module>
         <module>split-database-table</module>
+        <module>split-table-auto</module>
         <module>split-database-table-read-write</module>
     </modules>
     <parent>
