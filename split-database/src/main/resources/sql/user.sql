@@ -11,7 +11,7 @@ CREATE TABLE `t_user` (
   `update_time` datetime(6) DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(1) DEFAULT NULL COMMENT '是否删除 1删除 0未删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 use ds_1;
 CREATE TABLE `t_user` (
@@ -23,4 +23,4 @@ CREATE TABLE `t_user` (
   `update_time` datetime(6) DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(1) DEFAULT NULL COMMENT '是否删除 1删除 0未删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;

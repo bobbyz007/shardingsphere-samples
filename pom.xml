@@ -11,6 +11,7 @@
         <module>split-database-table</module>
         <module>split-table-auto</module>
         <module>split-database-table-read-write</module>
+        <module>shadow-value-match</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

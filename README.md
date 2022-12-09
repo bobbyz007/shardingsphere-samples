@@ -7,7 +7,12 @@
 SpringBoot 2.7.6 + shardingsphere 5.2.1 + MySQL 8 主从
 ```
 
-## 二、mysql 8 主从搭建
+## 二、数据分片算法
+具体分片算法可参考：
+https://shardingsphere.apache.org/document/current/cn/user-manual/common-config/builtin-algorithm/sharding/
+https://blog.csdn.net/qq_36641443/article/details/127343113
+
+## 三、mysql 8 主从搭建
 refer: https://www.cnblogs.com/liuqingzheng/p/16328887.html
 
 1. 启动主从库容器（挂载外部目录，端口映射成 33306/33307，密码设置为123456）
