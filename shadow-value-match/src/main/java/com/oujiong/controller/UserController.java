@@ -68,4 +68,9 @@ public class UserController {
     public Object listUser(@PathVariable int userType) {
         return userService.listByShadow(userType);
     }
+
+    @PostMapping("truncate-table-shadow")
+    public Object truncateTableShadow() {
+        return userService.truncateTableShadow();
+    }
 }

@@ -61,4 +61,10 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+    @Override
+    public String truncateTableShadow() {
+        userMapper.truncateTableShadow();
+        return "truncate table shadow success";
+    }
 }

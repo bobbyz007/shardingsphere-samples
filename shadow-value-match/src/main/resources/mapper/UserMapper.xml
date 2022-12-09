@@ -43,4 +43,8 @@
     INSERT INTO t_user (user_id, user_type, username, pwd)
     VALUES (#{userId,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR});
   </insert>
+
+  <update id="truncateTableShadow">
+    TRUNCATE TABLE t_user /*shadow:true,foo:bar*/;
+  </update>
 </mapper>

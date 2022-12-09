@@ -36,4 +36,6 @@ public interface UserMapper {
      */
     List<User> selectAll();
 
+    void truncateTableShadow();
+
 }
