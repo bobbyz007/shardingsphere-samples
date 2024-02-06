@@ -4,7 +4,7 @@
 项目总体技术选型
 
 ```
-SpringBoot 2.7.6 + shardingsphere 5.2.1 + MySQL 8 主从
+SpringBoot 3.2.2 + shardingsphere 5.4.1 + MySQL 8 主从
 ```
 
 ## 二、数据分片算法
@@ -103,14 +103,12 @@ mysql -h 127.0.0.1 -P 33307 -u root -p123456
 ```
 ```shell
 #配置详解
-/*
-change master to
-master_host='MySQL主服务器IP地址',
-master_user='之前在MySQL主服务器上面创建的用户名'，
-master_password='之前创建的密码',
-master_log_file='MySQL主服务器状态中的二进制文件名',
-master_log_pos='MySQL主服务器状态中的position值';
-*/
+# change master to
+# master_host='MySQL主服务器IP地址',
+# master_user='之前在MySQL主服务器上面创建的用户名'，
+# master_password='之前创建的密码',
+# master_log_file='MySQL主服务器状态中的二进制文件名',
+# master_log_pos='MySQL主服务器状态中的position值';
 #命令如下
 change master to master_host='mysql-master',master_port=3306,master_user='test',master_password='123456',master_log_file='mysql-bin.000003',master_log_pos=0;
 #启用从库

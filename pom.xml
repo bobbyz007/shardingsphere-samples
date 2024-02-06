@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>3.2.2</version>
         <relativePath/>
     </parent>
     <groupId>com.jincou.sharding.sphere</groupId>
@@ -26,11 +26,12 @@
     <description>Demo project for Shardingsphere</description>
 
     <properties>
-        <java.version>11</java.version>
-        <mybatis-spring-boot>2.3.0</mybatis-spring-boot>
-        <druid>1.2.15</druid>
-        <snakeyaml>1.33</snakeyaml>
-        <shardingsphere>5.2.1</shardingsphere>
+        <java.version>21</java.version>
+        <mybatis-spring-boot>3.0.3</mybatis-spring-boot>
+        <druid>1.2.21</druid>
+        <snakeyaml>2.2</snakeyaml>
+        <jaxb-runtime>4.0.4</jaxb-runtime>
+        <shardingsphere>5.4.1</shardingsphere>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>
@@ -40,6 +41,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 排除自带的logging，引入spring-boot-starter-log4j2 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -75,12 +87,22 @@
             <artifactId>snakeyaml</artifactId>
             <version>${snakeyaml}</version>
         </dependency>
-
-        <!--shardingsphere最新版本-->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb-runtime}</version>
+        </dependency>
+        <!--shardingsphere最新版本，5.3.0之后的版本不再支持spring boot starter-->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
             <version>${shardingsphere}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--lombok实体工具-->
