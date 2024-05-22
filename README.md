@@ -1,4 +1,5 @@
 # Shardingsphere Samples
+-[ ] 目前shardingsphere不支持jakarta ee 9以及以上版本，等待新版本发布。
 ## 一、技术架构
 
 项目总体技术选型
