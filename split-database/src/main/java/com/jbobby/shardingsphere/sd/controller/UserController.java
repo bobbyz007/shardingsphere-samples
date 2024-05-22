@@ -1,9 +1,9 @@
-package com.oujiong.controller;
+package com.jbobby.shardingsphere.sd.controller;
 
 
 import com.google.common.collect.Lists;
-import com.oujiong.entity.User;
-import com.oujiong.service.UserService;
+import com.jbobby.shardingsphere.sd.entity.User;
+import com.jbobby.shardingsphere.sd.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

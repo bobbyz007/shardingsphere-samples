@@ -7,7 +7,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   # resultType配置时所在的包位置
-  type-aliases-package: com.oujiong.entity
+  type-aliases-package: com.jbobby.shardingsphere.sd.entity
   configuration:
     # like column:user_name, property:userName
     map-underscore-to-camel-case: true
