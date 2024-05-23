@@ -1,15 +1,20 @@
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
 dataSources:
   ds:
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
-    # 使用druid必须用url，而不是jdbcUrl
+    # 使用druid必须用url，而不是 jdbcUrl
     url: jdbc:mysql://127.0.0.1:3306/ds?characterEncoding=utf-8
     username: mysql
     password: mysql
   ds_shadow:
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
-    # 使用druid必须用url，而不是jdbcUrl
+    # 使用druid必须用 url，而不是 jdbcUrl
     url: jdbc:mysql://127.0.0.1:3306/ds_shadow?characterEncoding=utf-8
     username: mysql
     password: mysql
@@ -50,6 +55,9 @@ rules:
           regex: "[1]"
       sql_hint_algorithm:
         type: SQL_HINT
+        props:
+          shadow: true
+          foo: bar
 #打印sql
 props:
   sql-show: true
