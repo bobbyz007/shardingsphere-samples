@@ -12,12 +12,12 @@
     <properties>
         <revision>0.0.1-SNAPSHOT</revision>
 
+        <shardingsphere.version>5.5.0</shardingsphere.version>
         <spring-boot.version>3.2.5</spring-boot.version>
         <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
         <druid.version>1.2.22</druid.version>
         <snakeyaml.version>2.2</snakeyaml.version>
         <jaxb-runtime.version>4.0.5</jaxb-runtime.version>
-        <shardingsphere.version>5.5.0</shardingsphere.version>
         <mysql.version>8.4.0</mysql.version>
         <lombok.version>1.18.32</lombok.version>
         <slf4j-api.version>2.0.13</slf4j-api.version>
@@ -27,7 +27,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.test.skip>false</maven.test.skip> <!-- 不编译测试用例，也不执行 -->
+        <maven.test.skip>false</maven.test.skip> <!-- 不编译不执行测试用例-->
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
@@ -60,6 +60,7 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
+
         <!-- 防止被间接依赖覆盖 -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -84,15 +85,12 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-        <!--druid数据源-->
+        <!--druid数据源：不能使用druid-spring-boot-starter，参考：https://github.com/apache/shardingsphere/issues/5697 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
         </dependency>
-        <!--
-        不能使用druid-spring-boot-starter，参考：https://github.com/apache/shardingsphere/issues/5697
-         -->
         <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -131,6 +129,7 @@
             </exclusions>
         </dependency>
 
+        <!-- 统一shardingsphere间接依赖的jackson版本 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -161,8 +160,6 @@
             <artifactId>jackson-module-parameter-names</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
-
 
         <!--lombok实体工具-->
         <dependency>

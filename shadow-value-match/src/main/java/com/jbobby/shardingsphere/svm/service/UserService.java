@@ -1,6 +1,6 @@
-package com.oujiong.service;
+package com.jbobby.shardingsphere.svm.service;
 
-import com.oujiong.entity.User;
+import com.jbobby.shardingsphere.svm.entity.User;
 
 import java.util.List;
 
