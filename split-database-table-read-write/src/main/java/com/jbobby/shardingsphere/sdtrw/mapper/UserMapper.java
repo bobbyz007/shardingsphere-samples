@@ -1,7 +1,6 @@
-package com.oujiong.mapper;
+package com.jbobby.shardingsphere.sdtrw.mapper;
 
-
-import com.oujiong.entity.User;
+import com.jbobby.shardingsphere.sdtrw.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

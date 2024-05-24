@@ -1,15 +1,15 @@
-package com.oujiong.controller;
+package com.jbobby.shardingsphere.sdtrw.controller;
 
 
 import com.google.common.collect.Lists;
-import com.oujiong.entity.User;
-import com.oujiong.service.UserService;
+import com.jbobby.shardingsphere.sdtrw.entity.User;
+import com.jbobby.shardingsphere.sdtrw.service.UserService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 
