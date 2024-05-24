@@ -1,8 +1,8 @@
-package com.oujiong.controller;
+package com.jbobby.shardingsphere.srw.controller;
 
 
-import com.oujiong.entity.User;
-import com.oujiong.service.UserService;
+import com.jbobby.shardingsphere.srw.entity.User;
+import com.jbobby.shardingsphere.srw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS `t_user`;
+create database masterdb;
+
+use masterdb;
 
 CREATE TABLE `t_user` (
   `id` bigint(32) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
