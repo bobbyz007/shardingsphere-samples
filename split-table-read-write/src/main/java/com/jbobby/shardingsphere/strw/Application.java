@@ -1,4 +1,4 @@
-package com.oujiong;
+package com.jbobby.shardingsphere.strw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

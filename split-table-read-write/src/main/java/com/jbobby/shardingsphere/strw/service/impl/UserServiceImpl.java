@@ -1,8 +1,8 @@
-package com.oujiong.service.impl;
+package com.jbobby.shardingsphere.strw.service.impl;
 
-import com.oujiong.entity.User;
-import com.oujiong.mapper.UserMapper;
-import com.oujiong.service.UserService;
+import com.jbobby.shardingsphere.strw.entity.User;
+import com.jbobby.shardingsphere.strw.mapper.UserMapper;
+import com.jbobby.shardingsphere.strw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
