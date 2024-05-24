@@ -5,4 +5,4 @@ spring:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:ss-config.yaml
 mybatis:
-    config-location: classpath:mybatis-config.xml
+  config-location: classpath:mybatis-config.xml
