@@ -1,4 +1,4 @@
-package com.oujiong.entity;
+package com.jbobby.shardingsphere.st.entity;
 
 import lombok.Data;
 
