@@ -4,7 +4,7 @@
 项目总体技术选型
 
 ```
-SpringBoot 3.2.2 + shardingsphere 5.4.1 + MySQL 8 主从
+SpringBoot 3 + shardingsphere 5.5.0 + MySQL 8 主从
 ```
 
 ## 二、数据分片算法
