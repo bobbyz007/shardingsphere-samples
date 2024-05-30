@@ -27,7 +27,7 @@ public interface UserService {
 
     String  insert(User user);
 
-    boolean delete(int type, int value);
+    boolean delete(String type, int value);
 
     String truncateTableShadow();
 }

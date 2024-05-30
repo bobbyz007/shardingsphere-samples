@@ -32,12 +32,9 @@ public class UserController {
      */
     @PostConstruct
     private void getData() {
-        // age 分库
-        userList.add(new User(0,0, "test0", "111"));
-        userList.add(new User(0,1, "test0", "111"));
-        userList.add(new User(0,0, "test0", "111"));
-        userList.add(new User(0,1, "test0", "111"));
-        userList.add(new User(0,0, "test0", "111"));
+        for (int i = 0; i < 5; i++) {
+            userList.add(new User());
+        }
     }
     /**
      * @Description: 批量保存用户
@@ -49,11 +46,11 @@ public class UserController {
 
     @PostMapping("save-single-user")
     public Object saveSingleUser() {
-        return userService.insert(userList.get(0));
+        return userService.insert(new User());
     }
 
     @DeleteMapping(value = "delete/{type}/{value}")
-    public boolean delete(@PathVariable Integer type, @PathVariable Integer value) {
+    public boolean delete(@PathVariable("type") String type, @PathVariable("value") Integer value) {
         return userService.delete(type, value);
     }
     /**
@@ -65,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping("list-user/{userType}")
-    public Object listUser(@PathVariable int userType) {
+    public Object listUser(@PathVariable("userType") int userType) {
         return userService.listByShadow(userType);
     }
 

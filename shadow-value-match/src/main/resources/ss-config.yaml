@@ -20,6 +20,12 @@ dataSources:
     password: mysql
 
 rules:
+    # 单表是指在 ShardingSphere不分库分表的表，如果没有配置任何分库分表规则，则需要手动加载单表。
+    # 5.5.0之后版本需要添加 single 单表规则配置，否则会抛出异常 Table or view t_user does not exist
+    # https://github.com/apache/shardingsphere/issues/31179
+  - !SINGLE
+    tables:
+      - "*.*"
   - !SHADOW
     dataSources:
       shadowDataSource:

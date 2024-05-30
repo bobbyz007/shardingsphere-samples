@@ -2,6 +2,7 @@ package com.jbobby.shardingsphere.svm.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private int userId;
 
@@ -17,5 +19,5 @@ public class User {
 
     private String userName;
 
-    private String pwd;
+    private String pwd = "123456";
 }

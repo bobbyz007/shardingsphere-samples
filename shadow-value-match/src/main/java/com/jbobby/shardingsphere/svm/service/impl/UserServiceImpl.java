@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public String insertForeach(List<User> userList) {
         for (User user : userList) {
-            // id分表
-            user.setUserId(counter.incrementAndGet());
+            user.setUserName("test" + counter.get());
+            user.setUserType(counter.getAndIncrement() % 2);
         }
         //批量插入数据
         userMapper.insertForeach(userList);
@@ -46,17 +46,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String insert(User user) {
-        user.setUserId(counter.incrementAndGet());
-        user.setUserType(counter.intValue() % 2);
+        user.setUserName("test" + counter.get());
+        user.setUserType(counter.getAndIncrement() % 2);
         userMapper.insert(user);
         return "insert user success";
     }
 
     @Override
-    public boolean delete(int type, int value) {
-        if (type == 0) {
+    public boolean delete(String type, int value) {
+        if (type.equalsIgnoreCase("byid")) {
             userMapper.deleteById(value);
-        } else if (type == 1) {
+        } else if (type.equalsIgnoreCase("byusertype")) {
             userMapper.deleteByUserType(value);
         }
         return true;
