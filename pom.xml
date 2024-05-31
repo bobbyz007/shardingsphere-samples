@@ -39,7 +39,8 @@
         <module>split-database-table</module>
         <module>split-table-auto</module>
         <module>split-database-table-read-write</module>
-        <module>shadow-value-match</module>
+        <module>shadow-match</module>
+        <module>shadow-match-split-database-table</module>
     </modules>
 
     <dependencies>
