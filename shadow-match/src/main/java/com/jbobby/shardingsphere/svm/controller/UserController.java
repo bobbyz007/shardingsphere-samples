@@ -10,13 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-/**
- * @Description: 接口测试
- *
- * @author xub
- * @date 2019/8/24 下午6:31
- */
 @RestController
 public class UserController {
 

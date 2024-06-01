@@ -19,8 +19,9 @@ public class ShadowController {
     @Autowired
     private ShadowService shadowService;
 
-    @PostMapping("clean-env")
+    @PostMapping("init-env")
     public boolean cleanEnvironment() {
+        shadowService.cleanEnvironment();
         shadowService.initEnvironment();
         return true;
     }
