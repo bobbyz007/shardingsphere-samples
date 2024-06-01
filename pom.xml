@@ -41,6 +41,7 @@
         <module>split-database-table-read-write</module>
         <module>shadow-match</module>
         <module>shadow-match-split-database-table</module>
+        <module>shadow-match-split-read-write</module>
     </modules>
 
     <dependencies>

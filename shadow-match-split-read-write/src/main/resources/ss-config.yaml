@@ -1,0 +1,91 @@
+dataSources:
+  master:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/masterdb?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  shadow_master:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/shadow_masterdb?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+  # 本地验证没必要搭建主从同步，使用不同数据库验证即可
+  slave:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/slavedb?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  shadow_slave:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/shadow_slavedb?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+rules:
+  # 单表是指在 ShardingSphere不分库分表的表，如果没有配置任何分库分表规则，则需要手动加载单表。
+  # 5.5.0之后版本需要添加 single 单表规则配置，否则会抛出异常 Table or view t_user does not exist
+  # https://github.com/apache/shardingsphere/issues/31179
+  - !SINGLE
+    tables:
+      - "*.*"
+  - !READWRITE_SPLITTING
+    dataSources:
+      readwrite_ds:
+        writeDataSourceName: datasource_write
+        readDataSourceNames:
+          - datasource_read
+        loadBalancerName: round_robin
+    loadBalancers:
+      round_robin:
+        type: ROUND_ROBIN
+
+  - !SHADOW
+    dataSources:
+      # 必须配置为与productionDataSourceName同名，否则不会路由到影子库中创建表格
+      datasource_write:
+        productionDataSourceName: master
+        shadowDataSourceName: shadow_master
+      datasource_read:
+        productionDataSourceName: slave
+        shadowDataSourceName: shadow_slave
+    tables:
+      t_user:
+        dataSourceNames:
+          - datasource_write
+          - datasource_read
+        shadowAlgorithmNames:
+          - user_id_insert_match_algorithm
+          - user_id_select_match_algorithm
+          - sql_hint_algorithm
+    defaultShadowAlgorithmName: sql_hint_algorithm
+    shadowAlgorithms:
+      user_id_insert_match_algorithm:
+        type: VALUE_MATCH
+        props:
+          operation: insert
+          column: status
+          value: 1
+      user_id_select_match_algorithm:
+        type: VALUE_MATCH
+        props:
+          operation: select
+          column: status
+          value: 1
+      sql_hint_algorithm:
+        # org.apache.shardingsphere.infra.hint.SQLHintUtils
+        type: SQL_HINT
+        props:
+          shadow: true
+
+#打印sql
+props:
+  sql-show: true
