@@ -10,12 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-
-/**
- * @author xub
- * @Description: 用户实现类
- * @date 2019/8/8 上午9:13
- */
 @Service
 public class UserServiceImpl implements UserService {
 

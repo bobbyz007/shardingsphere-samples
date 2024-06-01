@@ -8,13 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-/**
- * @Description: 接口测试
- *
- * @author xub
- * @date 2019/8/24 下午6:31
- */
 @RestController
 public class UserController {
 

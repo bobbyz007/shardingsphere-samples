@@ -4,12 +4,6 @@ import com.jbobby.shardingsphere.st.entity.User;
 
 import java.util.List;
 
-/**
- * @Description: 用户相关接口
- *
- * @author xub
- * @date 2019/10/10 下午8:53
- */
 public interface UserService {
 
     /**

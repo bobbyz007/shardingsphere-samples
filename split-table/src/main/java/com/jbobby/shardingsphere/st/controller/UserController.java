@@ -11,15 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
-
-/**
- * @author xub
- * @Description: 接口测试
- * @date 2019/10/10 下午8:52
- */
 @RestController
 public class UserController {
 

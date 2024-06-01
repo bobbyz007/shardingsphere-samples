@@ -4,9 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * user表
- */
 @Data
 public class User {
     /**
