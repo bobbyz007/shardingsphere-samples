@@ -1,12 +1,9 @@
-package com.oujiong.entity;
+package com.jbobby.shardingsphere.sta.entity;
 
 import lombok.Data;
 
 import java.util.Date;
 
-/**
- * user表
- */
 @Data
 public class User {
     /**

@@ -1,15 +1,9 @@
-package com.oujiong.service;
+package com.jbobby.shardingsphere.sta.service;
 
-import com.oujiong.entity.User;
+import com.jbobby.shardingsphere.sta.entity.User;
 
 import java.util.List;
 
-/**
- * @Description: 用户相关接口
- *
- * @author xub
- * @date 2019/8/24 下午6:32
- */
 public interface UserService {
 
     /**
@@ -22,5 +16,7 @@ public interface UserService {
      * @param userVOList
      */
     String  insertForeach(List<User> userVOList);
+
+    void initEnvironment();
 
 }

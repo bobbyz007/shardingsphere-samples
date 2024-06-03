@@ -1,28 +1,25 @@
-package com.oujiong.service.impl;
+package com.jbobby.shardingsphere.sta.service.impl;
 
-import com.oujiong.entity.User;
-import com.oujiong.mapper.UserMapper;
-import com.oujiong.service.UserService;
+import com.jbobby.shardingsphere.sta.entity.User;
+import com.jbobby.shardingsphere.sta.mapper.UserMapper;
+import com.jbobby.shardingsphere.sta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
-
-/**
- * @author xub
- * @Description: 用户实现类
- * @date 2019/8/8 上午9:13
- */
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
-    private AtomicLong counter = new AtomicLong(0);
+    @Override
+    public void initEnvironment() {
+        userMapper.createTableIfNotExists();
+    }
+
     @Override
     public  List<User> list() {
         List<User> users = userMapper.selectAll();
@@ -32,9 +29,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String insertForeach(List<User> userList) {
         for (User user : userList) {
-            // id分表
-            user.setId(counter.incrementAndGet());
-
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
             user.setStatus(0);
