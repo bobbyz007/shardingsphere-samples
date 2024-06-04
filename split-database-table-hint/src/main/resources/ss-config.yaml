@@ -1,0 +1,47 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_0?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  ds_1:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_1?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+rules:
+  - !SHARDING
+    # 数据分片规则配置：根据id分表
+    tables:
+      t_user:
+        # 在 UserServiceImpl的 insertSingle() 方法中设置 hint 值
+        actualDataNodes: ds_$->{0..1}.t_user_$->{0..2}
+        databaseStrategy:
+          hint:
+            shardingAlgorithmName: t_user_database_hint_inline
+
+        tableStrategy:
+          hint:
+            shardingAlgorithmName: t_user_table_hint_inline
+
+    # 分片算法配置
+    shardingAlgorithms:
+      t_user_database_hint_inline:
+        type: HINT_INLINE
+        props:
+          # 在 UserServiceImpl的 insertSingle() 方法中设置 hint 值
+          algorithm-expression: ds_$->{Integer.valueOf(value) % 2}
+      t_user_table_hint_inline:
+        type: HINT_INLINE
+        props:
+          # 在 UserServiceImpl的 insertSingle() 方法中设置 hint 值
+          algorithm-expression: t_user_$->{Integer.valueOf(value) % 3}
+
+#打印sql
+props:
+  sql-show: true

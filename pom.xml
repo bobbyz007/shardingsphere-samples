@@ -38,6 +38,7 @@
         <module>split-database</module>
         <module>split-database-table</module>
         <module>split-database-table-complex</module>
+        <module>split-database-table-hint</module>
         <module>split-table-auto</module>
         <module>split-database-table-read-write</module>
         <module>shadow-match</module>
