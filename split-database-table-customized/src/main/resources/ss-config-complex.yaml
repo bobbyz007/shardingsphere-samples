@@ -1,0 +1,47 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_0?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  ds_1:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_1?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+rules:
+  - !SHARDING
+    tables:
+      t_user:
+        actualDataNodes: ds_$->{0..1}.t_user_$->{0..2}
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: t_user_database_inline # 也可以配置 t_user_standard_custom_algorithm
+
+        tableStrategy:
+          complex:
+            shardingColumns: user_id, addr_id
+            shardingAlgorithmName: t_user_complex_custom_algorithm
+
+    # 分片算法配置
+    shardingAlgorithms:
+      t_user_database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_$->{user_id % 2}
+          allow-range-query-with-inline-sharding: true
+      t_user_complex_custom_algorithm:
+        type: CLASS_BASED
+        props:
+          strategy: complex
+          algorithmClassName: com.jbobby.shardingsphere.sdtca.algorithm.UserComplexCustomAlgorithm
+
+#打印sql
+props:
+  sql-show: true
