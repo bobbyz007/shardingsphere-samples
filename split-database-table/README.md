@@ -1,5 +1,7 @@
 ## 一、项目概述
-
+此示例主要包含标准分片算法，主要包括inline和interval，分别对应配置  
+src/main/resources/ss-config-inline.yaml  
+src/main/resources/ss-config-interval.yaml  
 ### 1、项目说明
 
 在实际开发中，如果表的数据过大我们需要把一张表拆分成多张表，也可以垂直切分把一个库拆分成多个库，这里就是通过ShardingSphere实现`分库分表`功能。
@@ -18,7 +20,10 @@
 
 请求接口
 
-```
+```shell
+# 创建分片表
+http://127.0.0.1:8088/init-env
+
 localhost:8088/save-user
 ```
 

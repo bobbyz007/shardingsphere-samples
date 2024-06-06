@@ -1,8 +1,7 @@
--- 清理数据
-use ds_0;
-delete from t_user_0;
-delete from t_user_1;
+drop database ds_0;
+drop database ds_1;
 
-use ds_1;
-delete from t_user_0;
-delete from t_user_1;
+create database ds_0;
+create database ds_1;
+
+-- no need to create tables manually as shardingsphere will create tables automatically by rules while creating logical table.

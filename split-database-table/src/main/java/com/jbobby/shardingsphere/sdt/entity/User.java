@@ -29,17 +29,17 @@ public class User {
     /**
      *
      */
-    private Date createTime;
+    private Date createTime = new Date();
 
     /**
      *
      */
-    private Date updateTime;
+    private Date updateTime = new Date();
 
     /**
      * 是否删除 1删除 0未删除
      */
-    private Integer status;
+    private Integer status = 0;
 
     public User(Long id,String name, String sex, Integer age) {
         this.id = id;

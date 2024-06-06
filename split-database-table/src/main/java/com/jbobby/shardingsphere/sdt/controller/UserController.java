@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,32 +22,49 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * 模拟插入数据
-     */
-    List<User> userList = Lists.newArrayList();
-    /**
-     * 初始化插入数据
-     */
-    @PostConstruct
-    private void getData() {
-        // age 分库
-        userList.add(new User(0L,"小小", "女", 1));
-        userList.add(new User(0L,"爸爸", "男", 2));
-        userList.add(new User(0L,"妈妈", "女", 3));
-        userList.add(new User(0L,"爷爷", "男", 4));
-        userList.add(new User(0L,"奶奶", "女", 5));
+    @PostMapping("init-env")
+    public boolean cleanEnvironment() {
+        userService.initEnvironment();
+        return true;
     }
-    /**
-     * @Description: 批量保存用户
-     */
+
     @PostMapping("save-user")
     public Object saveUser() {
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            // 保证根据age和id分库分表可以分布到各个数据分片中
+            User user = new User(0L, "小小", "女", i + 1);
+            User user2 = new User(0L, "小小", "女", i + 1);
+
+            userList.add(user);
+            userList.add(user2);
+        }
         return userService.insertForeach(userList);
     }
-    /**
-     * @Description: 获取用户列表
-     */
+
+    @PostMapping("save-user/interval")
+    public Object saveUserWithInterval() {
+        List<User> userList = new ArrayList<>();
+        LocalDateTime[] dateTimes = new LocalDateTime[]{
+                LocalDateTime.of(2024, 1, 12, 16, 16, 16),
+                LocalDateTime.of(2024, 2, 12, 16, 16, 16),
+                LocalDateTime.of(2024, 3, 12, 16, 16, 16),
+                LocalDateTime.of(2024, 4, 12, 16, 16, 16),
+                LocalDateTime.of(2024, 5, 12, 16, 16, 16),
+                LocalDateTime.of(2024, 6, 5, 16, 16, 16),
+
+                // 超过shardingsphere配置的分片范围则会报错
+                // LocalDateTime.of(2024, 7, 5, 16, 16, 16),
+        };
+
+        for (int i = 0; i < dateTimes.length; i++) {
+            User user = new User(0L, "Justin", "male", 100 + i);
+            user.setCreateTime(Date.from(dateTimes[i].atZone(ZoneId.systemDefault()).toInstant()));
+            userList.add(user);
+        }
+        return userService.insertForeach(userList);
+    }
+
     @GetMapping("list-user")
     public Object listUser() {
         return userService.list();

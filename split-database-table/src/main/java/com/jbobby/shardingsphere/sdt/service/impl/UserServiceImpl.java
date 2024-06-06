@@ -17,6 +17,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     private AtomicLong counter = new AtomicLong(0);
+
+    @Override
+    public void initEnvironment() {
+        userMapper.createTableIfNotExists();
+    }
+
     @Override
     public  List<User> list() {
         List<User> users = userMapper.selectAll();
@@ -28,10 +34,6 @@ public class UserServiceImpl implements UserService {
         for (User user : userList) {
             // id分表
             user.setId(counter.incrementAndGet());
-
-            user.setCreateTime(new Date());
-            user.setUpdateTime(new Date());
-            user.setStatus(0);
         }
         //批量插入数据
         userMapper.insertForeach(userList);
