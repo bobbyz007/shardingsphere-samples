@@ -14,3 +14,7 @@ http://127.0.0.1:8088/list-user-by-range
 http://127.0.0.1:8088/list-user-by-key-range/0
 http://127.0.0.1:8088/list-user-by-key-range/1
 ```
+
+自定义标准分片： src/main/resources/ss-config-standard.yaml  
+自定义复合分片：src/main/resources/ss-config-complex.yaml  
+自定义hint分片：src/main/resources/ss-config-hint.yaml  

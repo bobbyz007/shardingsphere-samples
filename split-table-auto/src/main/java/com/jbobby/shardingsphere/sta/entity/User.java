@@ -1,15 +1,19 @@
 package com.jbobby.shardingsphere.sta.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class User {
     /**
      * 主键
      */
     private Long id;
+
+    private long addrId;
 
     /**
      * 姓名
@@ -41,8 +45,9 @@ public class User {
      */
     private Integer status;
 
-    public User(Long id,String name, String sex, Integer age) {
+    public User(Long id, long addrId, String name, String sex, Integer age) {
         this.id = id;
+        this.addrId = addrId;
         this.name = name;
         this.sex = sex;
         this.age = age;

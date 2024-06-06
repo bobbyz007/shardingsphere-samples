@@ -3,6 +3,7 @@
 <mapper namespace="com.jbobby.shardingsphere.sta.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.jbobby.shardingsphere.sta.entity.User">
     <id column="user_id" jdbcType="BIGINT" property="id" />
+    <result column="addr_id" jdbcType="BIGINT" property="addrId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -11,12 +12,13 @@
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, name, sex, age, create_time, update_time, status
+    user_id, addr_id, name, sex, age, create_time, update_time, status
   </sql>
 
   <update id="createTableIfNotExists">
     CREATE TABLE `t_user` (
     `user_id` bigint NOT NULL AUTO_INCREMENT,
+    `addr_id` bigint NOT NULL,
     `name` varchar(64) DEFAULT NULL,
     `sex` varchar(32) DEFAULT NULL,
     `age` int DEFAULT NULL,
@@ -30,16 +32,16 @@
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_user order by create_time
+    from t_user order by addr_id
   </select>
 
   <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into t_user (name, sex,
+    insert into t_user (addr_id, name, sex,
     age, create_time, update_time,
     status)
     values
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.name,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR},
+      (#{item.addrId,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR},
       #{item.age,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP},
       #{item.status,jdbcType=INTEGER})
     </foreach>

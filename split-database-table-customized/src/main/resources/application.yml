@@ -3,7 +3,7 @@ server:
 spring:
   dataSource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
-    #url: jdbc:shardingsphere:classpath:ss-config-standard.yaml
-    url: jdbc:shardingsphere:classpath:ss-config-hint.yaml
+    url: jdbc:shardingsphere:classpath:ss-config-standard.yaml
+    #url: jdbc:shardingsphere:classpath:ss-config-hint.yaml
 mybatis:
   config-location: classpath:mybatis-config.xml

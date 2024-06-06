@@ -20,16 +20,18 @@ rules:
         actualDataSources: ds_$->{0..1}
         shardingStrategy:
           standard:
-            shardingColumn: user_id
-            shardingAlgorithmName: auto_mod
+            shardingColumn: addr_id
+            shardingAlgorithmName: t_user_volume_range
         keyGenerateStrategy:
           column: user_id # 注意插入语句中不能包含该列，否则不会自动生成id
           keyGeneratorName: snowflake_gen
     shardingAlgorithms:
-      auto_mod:
-        type: MOD
+      t_user_volume_range:
+        type: VOLUME_RANGE # 通过props参数就可以估算出需要多少张分片表，用户创建逻辑表t_user时shardingsphere会自动创建各个分片表
         props:
-          sharding-count: 4
+          range-lower: 2  # 范围下界，分片键值小于 range-lower 的所有记录单独存入一张分片表，通常是t_user_0
+          range-upper: 30 # 范围上界，分片键值大于等于 range-upper 的所有记录单独存入一张分片表
+          sharding-volume: 10 # 在[range-lower, range-upper)范围的内的所有记录按照每张分片表最多有sharding-volume条记录进行分片。
     keyGenerators:
       snowflake_gen:
         type: SNOWFLAKE
