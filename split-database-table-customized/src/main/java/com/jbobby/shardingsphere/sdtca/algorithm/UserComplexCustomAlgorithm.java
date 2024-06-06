@@ -46,6 +46,7 @@ public class UserComplexCustomAlgorithm implements ComplexKeysShardingAlgorithm<
             LOGGER.info("进入复合分片：columnName:{}, shardingValues:{}", columnName, JSON.toJSONString(shardingValues));
         });
 
+        // 测试用
         return List.of("t_user_0");
     }
 }

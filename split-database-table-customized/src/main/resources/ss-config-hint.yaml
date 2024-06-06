@@ -22,12 +22,13 @@ rules:
         databaseStrategy:
           standard:
             shardingColumn: user_id
-            shardingAlgorithmName: t_user_database_inline # 也可以配置 t_user_complex_custom_algorithm
+            shardingAlgorithmName: t_user_database_inline
+          #hint:   # 也可以配置 t_user_hint_custom_algorithm
+            #shardingAlgorithmName: t_user_hint_custom_algorithm
 
         tableStrategy:
-          complex:
-            shardingColumns: user_id, addr_id
-            shardingAlgorithmName: t_user_complex_custom_algorithm
+          hint:
+            shardingAlgorithmName: t_user_hint_custom_algorithm
 
     # 分片算法配置
     shardingAlgorithms:
@@ -36,11 +37,11 @@ rules:
         props:
           algorithm-expression: ds_$->{user_id % 2}
           allow-range-query-with-inline-sharding: true
-      t_user_complex_custom_algorithm:
+      t_user_hint_custom_algorithm:
         type: CLASS_BASED
         props:
-          strategy: complex
-          algorithmClassName: com.jbobby.shardingsphere.sdtca.algorithm.UserComplexCustomAlgorithm
+          strategy: hint
+          algorithmClassName: com.jbobby.shardingsphere.sdtca.algorithm.UserHintCustomAlgorithm
 
 #打印sql
 props:

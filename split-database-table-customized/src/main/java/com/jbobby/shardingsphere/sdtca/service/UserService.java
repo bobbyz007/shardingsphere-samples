@@ -14,5 +14,5 @@ public interface UserService {
     String  insertForeach(List<User> userVOList);
 
     boolean insertSingle(User user);
-
+    boolean insertSingleWithHint(long dbValue, long tableValue, User user);
 }

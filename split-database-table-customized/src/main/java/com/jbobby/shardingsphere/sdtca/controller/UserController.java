@@ -58,6 +58,26 @@ public class UserController {
         return true;
     }
 
+    /**
+     * 测试定制hint算法
+     {
+     "id": 10,
+     "addrId": 23,
+     "name": "Justin",
+     "age": 100,
+     "sex": "male",
+     "status": 0,
+     "createTime": "2024-06-05 16:03:39",
+     "updateTime": "2024-06-05 16:03:39"
+     }
+     */
+    @PostMapping("save-single-hint/{dbValue}/{tableValue}")
+    public boolean saveSingleUserWithHint(@PathVariable("dbValue") long dbValue,
+                                          @PathVariable("tableValue") long tableValue, @RequestBody User user) {
+        userService.insertSingleWithHint(dbValue, tableValue, user);
+        return true;
+    }
+
     @GetMapping("list-user")
     public Object listUser() {
         return userService.list();

@@ -55,4 +55,20 @@ public class UserServiceImpl implements UserService {
         userMapper.insertSingle(user);
         return true;
     }
+
+    @Override
+    public boolean insertSingleWithHint(long dbValue, long tableValue, User user) {
+        // ThreadLocal变量
+        HintManager hintManager = HintManager.getInstance();
+        hintManager.clearShardingValues();
+        // 设置逻辑表 t_user 的分库值
+        hintManager.addDatabaseShardingValue("t_user", dbValue);
+        // 设置逻辑表 t_user 的分表值
+        hintManager.addTableShardingValue("t_user", tableValue);
+
+        userMapper.insertSingle(user);
+
+        hintManager.close();
+        return true;
+    }
 }
