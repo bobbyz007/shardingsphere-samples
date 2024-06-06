@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> listFromMasterForcefully() {
+        return userMapper.selectAllFromMasterForcefully();
+    }
+
+    @Override
     public String insertForeach(List<User> userList) {
         for (User user : userList) {
             user.setCreateTime(new Date());

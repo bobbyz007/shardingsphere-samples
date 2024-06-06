@@ -13,7 +13,15 @@
   <sql id="Base_Column_List">
     id, name, sex, age, create_time, update_time, status
   </sql>
+
   <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user order by age
+  </select>
+
+  <select id="selectAllFromMasterForcefully"  resultMap="BaseResultMap">
+    /* SHARDINGSPHERE_HINT: WRITE_ROUTE_ONLY=true */
     select
     <include refid="Base_Column_List" />
     from t_user order by age

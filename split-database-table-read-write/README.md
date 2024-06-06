@@ -46,3 +46,9 @@ localhost:8088/save-user
 `结论` 从接口返回的结果可以很明显的看出，数据存储在主库,而数据库的读取在从库。
 
 `注意` ShardingSphere并不支持`CASE WHEN`、`HAVING`、`UNION (ALL)`，`有限支持子查询`。这个官网有详细说明。
+
+### 3、强制走主库查询
+```shell
+# 通过SQL 查询语句中指定SQL HINT的 WRITE_ROUTE_ONLY为true，使得SQL强制走主库
+http://127.0.0.1:8088/list-user-from-master-forcefully
+```

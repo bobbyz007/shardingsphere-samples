@@ -33,20 +33,22 @@ public class UserController {
         userList.add(new User(4L,"爷爷", "男", 64));
         userList.add(new User(5L,"奶奶", "女", 62));
     }
-    /**
-     * @Description: 批量保存用户
-     */
+
     @PostMapping("save-user")
     public Object saveUser() {
         return userService.insertForeach(userList);
     }
-    /**
-     * @Description: 获取用户列表
-     */
+
     @GetMapping("list-user")
     public Object listUser() {
         return userService.list();
     }
 
-
+    /**
+     * 通过SQL HINT使得读强制路由到 主库
+     */
+    @GetMapping("list-user-from-master-forcefully")
+    public Object listUserFromMasterForcefully() {
+        return userService.listFromMasterForcefully();
+    }
 }

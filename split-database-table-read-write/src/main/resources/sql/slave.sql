@@ -1,3 +1,6 @@
+drop database slavedb_0;
+drop database slavedb_1;
+
 create database slavedb_0;
 create database slavedb_1;
 

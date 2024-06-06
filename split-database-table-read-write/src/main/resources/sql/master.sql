@@ -1,3 +1,6 @@
+drop database masterdb_0;
+drop database masterdb_1;
+
 create database masterdb_0;
 create database masterdb_1;
 
