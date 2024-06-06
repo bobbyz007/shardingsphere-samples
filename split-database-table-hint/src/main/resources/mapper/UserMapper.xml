@@ -14,10 +14,27 @@
   <sql id="Base_Column_List">
     user_id, addr_id, name, sex, age, create_time, update_time, status
   </sql>
+
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from t_user order by user_id
+  </select>
+
+  <!-- 通过SQL注释指定HINT -->
+  <select id="selectAllWithSQLHint"  resultMap="BaseResultMap">
+    /* SHARDINGSPHERE_HINT:t_user.SHARDING_DATABASE_VALUE=1, t_user.SHARDING_TABLE_VALUE=1 */
+    select
+    <include refid="Base_Column_List" />
+    from t_user order by user_id;
+  </select>
+
+  <!-- 数据源透传，直接指定数据源，单独创建 t_user_hint表 -->
+  <select id="selectAllWithSQLHintDatasource"  resultMap="BaseResultMap">
+    /* SHARDINGSPHERE_HINT: DATA_SOURCE_NAME=ds_0 */
+    select
+    <include refid="Base_Column_List" />
+    from t_user_hint order by user_id
   </select>
 
   <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">

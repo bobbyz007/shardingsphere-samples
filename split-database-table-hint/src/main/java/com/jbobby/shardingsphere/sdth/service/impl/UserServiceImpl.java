@@ -23,6 +23,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> listWithSQLHint() {
+        return userMapper.selectAllWithSQLHint();
+    }
+
+    @Override
+    public List<User> listWithSQLHintDatasource() {
+        return userMapper.selectAllWithSQLHintDatasource();
+    }
+
+    @Override
     public String insertForeach(List<User> userList) {
         for (User user : userList) {
             user.setCreateTime(new Date());

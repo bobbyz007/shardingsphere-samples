@@ -1,10 +1,8 @@
 package com.jbobby.shardingsphere.sdth.controller;
 
-
 import com.google.common.collect.Lists;
 import com.jbobby.shardingsphere.sdth.entity.User;
 import com.jbobby.shardingsphere.sdth.service.UserService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,30 +13,18 @@ import java.util.List;
 
 @RestController
 public class UserController {
-
     @Autowired
     private UserService userService;
 
-    /**
-     * 模拟插入数据
-     */
-    List<User> userList = Lists.newArrayList();
-    /**
-     * 初始化插入数据
-     */
-    @PostConstruct
-    private void getData() {
-        userList.add(new User(0, 100, "小小", "女", 1));
-        userList.add(new User(0, 101, "爸爸", "男", 2));
-        userList.add(new User(0, 102, "妈妈", "女", 3));
-        userList.add(new User(0, 103, "爷爷", "男", 4));
-        userList.add(new User(0, 104, "爷爷", "男", 5));
-    }
     /**
      * 此方法没有设置hint值，此时会执行全库表路由，即在所有分片表中都会执行此语句。
      */
     @PostMapping("save-user")
     public Object saveUser() {
+        List<User> userList = Lists.newArrayList();
+        for (int i = 0; i < 5; i++) {
+            userList.add(new User(0, i + 100, "小小", "女", i + 1));
+        }
         return userService.insertForeach(userList);
     }
 
@@ -56,5 +42,15 @@ public class UserController {
     @GetMapping("list-user")
     public Object listUser() {
         return userService.list();
+    }
+
+    @GetMapping("list-user-with-sql-hint")
+    public Object listUserWithSQLHint() {
+        return userService.listWithSQLHint();
+    }
+
+    @GetMapping("list-user-with-sql-hint-datasource")
+    public Object listUserWithSQLHintDatasource() {
+        return userService.listWithSQLHintDatasource();
     }
 }
