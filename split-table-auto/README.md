@@ -32,3 +32,27 @@ http://127.0.0.1:8088/autotable/save-user/50
 # 获取所有数据
 http://127.0.0.1:8088/autotable/list-user
 ```
+
+自动分片之VOLUME_BOUNDARY:
+```shell
+# 自动在数据库中分片，创建对应的数据库表
+http://127.0.0.1:8088/autotable/init-env
+
+# 根据自动分片规则， 自动分配到对应表格中
+http://127.0.0.1:8088/autotable/save-user/100
+
+# 获取所有数据
+http://127.0.0.1:8088/autotable/list-user
+```
+
+自动分片之AUTO_INTERVAL:
+```shell
+# 自动在数据库中分片，创建对应的数据库表
+http://127.0.0.1:8088/autotable/init-env
+
+# 根据自动分片规则， 自动分配到对应表格中
+http://127.0.0.1:8088/autotable/save-user/auto-interval
+
+# 获取所有数据
+http://127.0.0.1:8088/autotable/list-user
+```
