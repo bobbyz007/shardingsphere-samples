@@ -1,10 +1,7 @@
 package com.jbobby.shardingsphere.sdt.controller;
 
-
-import com.google.common.collect.Lists;
 import com.jbobby.shardingsphere.sdt.entity.User;
 import com.jbobby.shardingsphere.sdt.service.UserService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,6 +66,4 @@ public class UserController {
     public Object listUser() {
         return userService.list();
     }
-
-
 }
