@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oujiong.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.oujiong.entity.User">
+<mapper namespace="com.jbobby.shardingsphere.sdt.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.jbobby.shardingsphere.sdt.entity.User">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
@@ -13,6 +13,20 @@
   <sql id="Base_Column_List">
     id, name, sex, age, create_time, update_time, status
   </sql>
+
+  <update id="createTableIfNotExists">
+    CREATE TABLE `t_user` (
+      `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+      `name` varchar(64) DEFAULT NULL COMMENT '姓名',
+      `sex` varchar(32) DEFAULT NULL COMMENT '性别',
+      `age` int DEFAULT NULL COMMENT '年龄',
+      `create_time` datetime(6) DEFAULT NULL COMMENT '创建时间',
+      `update_time` datetime(6) DEFAULT NULL COMMENT '更新时间',
+      `status` tinyint(1) DEFAULT NULL COMMENT '是否删除 1删除 0未删除',
+      PRIMARY KEY (`id`)
+    ) DEFAULT CHARSET=utf8mb4;
+  </update>
+
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

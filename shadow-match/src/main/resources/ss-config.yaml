@@ -1,0 +1,69 @@
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+dataSources:
+  ds:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  ds_shadow:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用 url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_shadow?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+rules:
+    # 单表是指在 ShardingSphere不分库分表的表，如果没有配置任何分库分表规则，则需要手动加载单表。
+    # 5.5.0之后版本需要添加 single 单表规则配置，否则会抛出异常 Table or view t_user does not exist
+    # https://github.com/apache/shardingsphere/issues/31179
+  - !SINGLE
+    tables:
+      - "*.*"
+  - !SHADOW
+    dataSources:
+      shadowDataSource:
+        productionDataSourceName: ds
+        shadowDataSourceName: ds_shadow
+    tables:
+      t_user:
+        dataSourceNames:
+          - shadowDataSource
+        shadowAlgorithmNames:
+          - user_id_insert_match_algorithm
+          - user_id_delete_match_algorithm
+          - user_id_select_match_algorithm
+          - sql_hint_algorithm
+    shadowAlgorithms:
+      user_id_insert_match_algorithm:
+        type: REGEX_MATCH
+        props:
+          operation: insert
+          column: user_type
+          regex: "[1]"
+      user_id_delete_match_algorithm:
+        type: REGEX_MATCH
+        props:
+          operation: delete
+          column: user_type
+          regex: "[1]"
+      user_id_select_match_algorithm:
+        type: REGEX_MATCH
+        props:
+          operation: select
+          column: user_type
+          regex: "[1]"
+      sql_hint_algorithm:
+        type: SQL_HINT
+        props:
+          shadow: true
+          foo: bar
+#打印sql
+props:
+  sql-show: true

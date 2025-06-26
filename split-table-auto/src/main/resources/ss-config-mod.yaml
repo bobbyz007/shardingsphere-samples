@@ -1,0 +1,39 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_0?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  ds_1:
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid必须用url，而不是jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_1?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+rules:
+  - !SHARDING
+    autoTables:
+      t_user:
+        actualDataSources: ds_$->{0..1}
+        shardingStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: auto_mod
+        keyGenerateStrategy:
+          column: user_id # 注意插入语句中不能包含该列，否则不会自动生成id
+          keyGeneratorName: snowflake_gen
+    shardingAlgorithms:
+      auto_mod:
+        type: MOD     # 也可以配置为 HASH_MOD，即先hash运算然后再取模，分布可能更均匀
+        props:
+          sharding-count: 4
+    keyGenerators:
+      snowflake_gen:
+        type: SNOWFLAKE
+
+#打印sql
+props:
+  sql-show: true

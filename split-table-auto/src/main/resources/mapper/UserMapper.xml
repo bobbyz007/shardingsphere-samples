@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oujiong.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.oujiong.entity.User">
-    <id column="id" jdbcType="BIGINT" property="id" />
+<mapper namespace="com.jbobby.shardingsphere.sta.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.jbobby.shardingsphere.sta.entity.User">
+    <id column="user_id" jdbcType="BIGINT" property="id" />
+    <result column="addr_id" jdbcType="BIGINT" property="addrId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -11,21 +12,36 @@
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, sex, age, create_time, update_time, status
+    user_id, addr_id, name, sex, age, create_time, update_time, status
   </sql>
+
+  <update id="createTableIfNotExists">
+    CREATE TABLE `t_user` (
+    `user_id` bigint NOT NULL AUTO_INCREMENT,
+    `addr_id` bigint NOT NULL,
+    `name` varchar(64) DEFAULT NULL,
+    `sex` varchar(32) DEFAULT NULL,
+    `age` int DEFAULT NULL,
+    `create_time` datetime(6) DEFAULT NULL,
+    `update_time` datetime(6) DEFAULT NULL,
+    `status` tinyint(1) DEFAULT NULL,
+    PRIMARY KEY (`user_id`)
+    ) DEFAULT CHARSET=utf8mb4;
+  </update>
+
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_user order by id
+    from t_user order by addr_id
   </select>
 
   <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into t_user (id, name, sex,
+    insert into t_user (addr_id, name, sex,
     age, create_time, update_time,
     status)
     values
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.id,jdbcType=BIGINT}, #{item.name,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR},
+      (#{item.addrId,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR},
       #{item.age,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP},
       #{item.status,jdbcType=INTEGER})
     </foreach>

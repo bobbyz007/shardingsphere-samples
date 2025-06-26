@@ -1,3 +1,7 @@
+create database ds;
+
+use ds;
+
 CREATE TABLE `t_user_0` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(64) DEFAULT NULL COMMENT '姓名',

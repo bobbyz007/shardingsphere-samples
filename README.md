@@ -125,14 +125,12 @@ docker network disconnect bridge mysql-slave
 
 ```shell
 #配置详解
-/*
-change master to
-master_host='MySQL主服务器IP地址',
-master_user='之前在MySQL主服务器上面创建的用户名'，
-master_password='之前创建的密码',
-master_log_file='MySQL主服务器状态中的二进制文件名',
-master_log_pos='MySQL主服务器状态中的position值';
-*/
+# change master to
+# master_host='MySQL主服务器IP地址',
+# master_user='之前在MySQL主服务器上面创建的用户名'，
+# master_password='之前创建的密码',
+# master_log_file='MySQL主服务器状态中的二进制文件名',
+# master_log_pos='MySQL主服务器状态中的position值';
 #命令如下
 CHANGE REPLICATION SOURCE TO SOURCE_HOST='mysql-master',SOURCE_PORT=3306,SOURCE_USER='test',SOURCE_PASSWORD='123456',SOURCE_LOG_FILE='mysql-bin.000003',SOURCE_LOG_POS=0;
 #启用从库

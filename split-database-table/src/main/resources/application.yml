@@ -1,0 +1,8 @@
+server:
+  port: 8088
+spring:
+  dataSource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:ss-config-inline.yaml
+mybatis:
+  config-location: classpath:mybatis-config.xml

@@ -1,0 +1,130 @@
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+
+dataSources:
+  ds_0:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_0?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  ds_1:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用 url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/ds_1?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+  shadow_ds_0:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/shadow_ds_0?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+  shadow_ds_1:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    # 使用druid必须用 url，而不是 jdbcUrl
+    url: jdbc:mysql://127.0.0.1:3306/shadow_ds_1?characterEncoding=utf-8
+    username: mysql
+    password: mysql
+
+rules:
+  # 单表是指在 ShardingSphere不分库分表的表，如果没有配置任何分库分表规则，则需要手动加载单表。
+  # 5.5.0之后版本需要添加 single 单表规则配置，否则会抛出异常 Table or view t_user does not exist
+  # https://github.com/apache/shardingsphere/issues/31179
+#  - !SINGLE
+#    tables:
+#      - "*.*"
+  - !SHARDING
+    tables:
+      t_order:
+        actualDataNodes: ds_$->{0..1}.t_order_$->{0..1}
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_inline
+        keyGenerateStrategy:
+          column: order_id
+          keyGeneratorName: snowflake_generator
+      t_order_item:
+        actualDataNodes: ds_$->{0..1}.t_order_item_$->{0..1}
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_item_inline
+        keyGenerateStrategy:
+          column: order_item_id
+          keyGeneratorName: snowflake_generator
+    bindingTables:
+      - t_order,t_order_item
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: user_id
+        shardingAlgorithmName: database_inline
+    shardingAlgorithms:
+      database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_${user_id % 2}
+      t_order_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_$->{order_id % 2}
+      t_order_item_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_item_$->{order_id % 2}
+    keyGenerators:
+      snowflake_generator:
+        type: SNOWFLAKE
+
+  - !BROADCAST
+    tables:
+      - t_address
+
+  - !SHADOW
+    dataSources:
+      # 必须配置为与productionDataSourceName同名，否则不会路由到影子库中创建表格
+      ds_0:
+        productionDataSourceName: ds_0
+        shadowDataSourceName: shadow_ds_0
+      ds_1:
+        productionDataSourceName: ds_1
+        shadowDataSourceName: shadow_ds_1
+    tables:
+      t_order:
+        dataSourceNames:
+          - ds_0
+          - ds_1
+        shadowAlgorithmNames:
+          - order_id_insert_match_algorithm
+          - order_id_select_match_algorithm
+          - sql_hint_algorithm
+    defaultShadowAlgorithmName: sql_hint_algorithm
+    shadowAlgorithms:
+      order_id_insert_match_algorithm:
+        type: VALUE_MATCH
+        props:
+          operation: insert
+          column: order_type
+          value: 1
+      order_id_select_match_algorithm:
+        type: VALUE_MATCH
+        props:
+          operation: select
+          column: order_type
+          value: 1
+      sql_hint_algorithm:
+        # org.apache.shardingsphere.infra.hint.SQLHintUtils
+        type: SQL_HINT
+        props:
+          shadow: true
+#打印sql
+props:
+  sql-show: true
