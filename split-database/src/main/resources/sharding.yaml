@@ -3,9 +3,9 @@ dataSources:
     dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     # 使用druid必须用url，而不是jdbcUrl
-    url: jdbc:mysql://127.0.0.1:3306/ds_0?characterEncoding=utf-8
-    username: mysql
-    password: mysql
+    url: jdbc:mysql://127.0.0.1:33306/ds_0?characterEncoding=utf-8
+    username: test
+    password: 123456
     druid:
       # 默认是0，一般数据库的连接数都有限制(show variables like 'max_connections';)，连接数过多消耗资源多，服务器可能撑不住
       initialSize: 5
@@ -46,9 +46,9 @@ dataSources:
     dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     # 使用druid必须用url，而不是jdbcUrl
-    url: jdbc:mysql://127.0.0.1:3306/ds_1?characterEncoding=utf-8
-    username: mysql
-    password: mysql
+    url: jdbc:mysql://127.0.0.1:33306/ds_1?characterEncoding=utf-8
+    username: test
+    password: 123456
 
 rules:
   - !SHARDING
